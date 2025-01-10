@@ -3,8 +3,9 @@
 # model: models/model.json
 # scenarios: scenarios/scenarios.json
 # example: ,/benchmark.sh models/model.json scenarios/scenarios.json
-#model=$1
-#scenarios=$2
+model=$1
+scenarios=$2
+
 
 . venv
 
@@ -17,11 +18,14 @@ kernel_dir=$"/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_
 
 cd "$kernel_dir"
 
-python3 ecosimp.py "$app_dir" "test_model.json" "test_scenarios.json"
+python3 ecosimp.py "$app_dir" "$model" "$scenarios"
 
 cd "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk/"
 
-quarto render "analisys/benchmark.qmd" --output-dir=../results 
+quarto render "analisys/macro_pk.qmd" --output-dir=../results 
 
-xdg-open results/benchmark.html
+xdg-open results/macro_pk.html
+
+
+
 

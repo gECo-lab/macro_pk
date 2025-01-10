@@ -21,7 +21,7 @@ T
 Todo:
     * Organize equations cals
 """
-from examples.benchmark.agents.goods import CapitalGood
+from agents.goods import CapitalGood
 from .firm import Firm
 from .equations import KGFirmEquations
 import random as rnd

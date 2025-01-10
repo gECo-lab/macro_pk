@@ -1,8 +1,8 @@
  # -*- coding: utf-8 -*-
-from examples.benchmark.agents.accounting import HHBookkeeper
-from .agents import EconomicAgent
-from .goods import Labor
-from .equations import HHEquations
+from  agents.accounting import HHBookkeeper
+from  agents import EconomicAgent
+from  goods import Labor
+from  equations import HHEquations
 import numpy as np
 
 
