@@ -1,0 +1,60 @@
+{
+  "simulation_name": "macro_model",
+  "simulation_parameters": [
+  ],
+  "model_name": "macro_model",
+  "schedule": [
+    {
+      "schedule_type": "MixedSchedule",
+      "schedule_name": "MyMxSchd"
+    }
+  ],
+  "spaces": [
+    {
+      "space_type": "CGMarket",
+      "space_name": "CG_Market",
+      "action_set": "market_action_set",
+      "action_class": "Market_action_set",
+      "space_variables": {
+        "intensity_of_choice": 0.0,
+        "market_type": "random"
+      }
+    },
+    {
+      "space_type": "LaborMarket",
+      "space_name": "Labor_Market",
+      "action_set": "market_action_set",
+      "action_class": "Market_action_set",
+      "space_variables": {
+        "intensity_of_choice": 0.0,
+        "market_type": "random"
+      }
+    }
+  ],
+  "agents_classes":[
+    "Household",
+    "CGFirm"
+  ],
+  "agents": [
+    {
+      "agent_type": "Household",
+      "agent_prefix": "HH",
+      "agent_spaces": [
+        "Labor_Market",
+        "CG_Market"
+      ],
+      "no_of_agents": 2000,
+      "has_observer": true
+    },
+    {
+      "agent_type": "CGFirm",
+      "agent_prefix": "CG",
+      "agent_spaces": [
+        "Labor_Market",
+        "CG_Market"
+      ],
+      "no_of_agents": 10,
+      "has_observer": true
+    }
+  ]
+}

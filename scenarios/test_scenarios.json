@@ -1,0 +1,245 @@
+{
+  "scenarios": [
+    {
+      "scenario_type": "Scenario",
+      "scenario_name": "Scenario1",
+      "scenario_parameters": [
+        {
+          "parameter_name": "no_of_runs",
+          "parameter_value": 3
+        },
+        {
+          "parameter_name": "reset_each_run",
+          "parameter_value": true
+        },
+        {
+          "parameter_name": "step_unit",
+          "parameter_value": "step"
+        },
+        {
+          "parameter_name": "step_interval",
+          "parameter_value": 1
+        },
+        {
+          "parameter_name": "no_of_steps",
+          "parameter_value": 40
+        }
+      ],
+      "scenario_variables": [
+        {
+          "var_name": "expect_lambda",
+          "var_init_value": 0.25,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "nu",
+          "var_init_value": 0.1,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "l_k",
+          "var_init_value": 0.1,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "mu_k",
+          "var_init_value": 1,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "mu_n",
+          "var_init_value": 1,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "r_bar",
+          "var_init_value": 0.4345,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "u_bar",
+          "var_init_value": 0.8,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "gamma_1",
+          "var_init_value": 0.01,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "gamma_2",
+          "var_init_value": 0.02,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "upsilon",
+          "var_init_value": 0.02,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "mu_ct",
+          "var_init_value": 0.318857,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "u_w",
+          "var_init_value": 0.08,
+          "var_type": "sharp"
+        }
+      ],
+      "agents_init": {
+        "Household": [
+          {
+            "var_name": "income",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "Se_ct",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "unemployed",
+            "var_type": "stochastic",
+            "var_dist": "np.random.choice([True,False], size = 1, p = [.2,.8])[0]",
+            "var_value": false,
+            "observed": true
+          },
+          {
+            "var_name": "demand_qnt",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "demand_expected_price",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "pe_ht",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "pe_ht_1",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "pe_ht_1",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "labor_qnt",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "wd_ht",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "wd_ht_1",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "u_ht_n",
+            "var_type": "sharp",
+            "var_dist": "None",
+            "var_value": 0,
+            "observed": true
+          }
+        ],
+        "CGFirm": [
+          {
+            "var_name": "ud_ct",
+            "var_type": "stochastic",
+            "var_dist": "np.random.randint(1,5)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "Se_ct",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "desired_output",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "Ndc_t",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "kc_t",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "We_ct",
+            "var_type": "stochastic",
+            "var_dist": "np.random.randint(10, 50)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "mu_ct",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0,0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "C_ct",
+            "var_type": "stochastic",
+            "var_dist": "np.random.lognormal(1.0,0.03)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "N_ct",
+            "var_type": "stochastic",
+            "var_dist": "np.random.randint(1,10)",
+            "var_value": 0.0,
+            "observed": true
+          }
+        ]
+        }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "Description": "Configuration file for the macroeconomic model",
+  "paths":
+    {
+      "kernel": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/main/EcoSim_p/kernel/",
+      "app": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk/",
+      "models": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk/models/",
+      "scenarios": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk/scenarios/",
+      "runs": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk//runs/",
+      "results": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk//results/"      
+    }
+}

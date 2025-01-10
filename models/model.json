@@ -1,0 +1,123 @@
+{
+  "simulation_name": "macro_model",
+  "simulation_model": "macro_model",
+  "simulation_parameters": [
+  ],
+  "model_name": "macro_model",
+  "schedule": [
+    {
+      "schedule_type": "MixedSchedule",
+      "schedule_name": "MyMxSchd"
+    }
+  ],
+  "spaces": [
+    {
+      "space_type": "Market",
+      "space_name": "Market",
+      "action_set": "market_action_set",
+      "action_class": "Market_action_set",
+      "space_variables": {
+        "intensity_of_choice": 0.0,
+        "market_type": "random"
+      }
+    }
+  ],
+  "agents_classes":[
+    "Household",
+    "CGFirm",
+    "KGFirm",
+    "Bank"
+  ],
+  "agents": [
+    {
+      "agent_type": "Household",
+      "agent_prefix": "HH",
+      "agent_spaces": [
+        "Market"
+      ],
+      "no_of_agents": 100
+    },
+    {
+      "agent_type": "CGFirm",
+      "agent_prefix": "CG",
+      "agent_spaces": [
+        "Market"
+      ],
+      "no_of_agents": 10
+    },
+    {
+      "agent_type": "KGFirm",
+      "agent_prefix": "KG",
+      "agent_spaces": [
+        "Market"
+      ],
+      "no_of_agents": 5
+    },
+    {
+      "agent_type": "Bank",
+      "agent_prefix": "BA",
+      "agent_spaces": [
+        "Market"
+      ],
+      "no_of_agents": 3
+    }
+  ],
+  "observers": [
+    {
+      "observer_type": "Observer",
+      "observer_name": "HH_Obs",
+      "observer_actions": [
+        "obs_hh"
+      ],
+      "observer_agent": "Household",
+      "observable_vars": [
+        "income",
+        "zet",
+        "zet_1",
+        "zt"      
+      ]
+    },
+    {
+      "observer_type": "Observer",
+      "observer_name": "CG_Obs",
+      "observer_actions": [
+        "obs_cg"
+      ],
+      "observer_agent": "CGFirm",
+      "observable_vars": [
+        "revenue",
+        "zet",
+        "zet_1",
+        "zt"      
+      ]
+    },
+    {
+      "observer_type": "Observer",
+      "observer_name": "KG_Obs",
+      "observer_actions": [
+        "obs_kg"
+      ],
+      "observer_agent": "KGFirm",
+      "observable_vars": [
+        "revenue",
+        "zet",
+        "zet_1",
+        "zt"      
+      ]
+    },
+    {
+      "observer_type": "Observer",
+      "observer_name": "BA_Obs",
+      "observer_actions": [
+        "obs_ba"
+      ],
+      "observer_agent": "Bank",
+      "observable_vars": [
+        "revenue",
+        "zet",
+        "zet_1",
+        "zt"      
+      ]
+    }
+  ]
+}
