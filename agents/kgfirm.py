@@ -35,7 +35,7 @@ class KGFirm(Firm):
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
 
-        self.eq = KGFirmEquations(self.active_scenario)
+        self.eq = KGFirmEquations(self.active_scenario, self)
 
         ## These variables can be initialised in json scenario file.
         initial_inventory_qnt = rnd.randint(10,50)

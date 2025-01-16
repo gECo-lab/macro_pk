@@ -211,7 +211,7 @@
             "observed": true
           },
           {
-            "var_name": "We_ct",
+            "var_name": "W_ct",
             "var_type": "stochastic",
             "var_dist": "np.random.randint(10, 50)",
             "var_value": 0.0,
@@ -233,6 +233,20 @@
           },
           {
             "var_name": "N_ct",
+            "var_type": "stochastic",
+            "var_dist": "np.random.randint(1,10)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "r_ct",
+            "var_type": "stochastic",
+            "var_dist": "np.random.randint(1,10)",
+            "var_value": 0.0,
+            "observed": true
+          },
+          {
+            "var_name": "g_ct",
             "var_type": "stochastic",
             "var_dist": "np.random.randint(1,10)",
             "var_value": 0.0,

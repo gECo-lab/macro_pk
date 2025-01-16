@@ -22,8 +22,9 @@ import numpy as np
 
 class Equations():
     """ The equations class for the benchmark model implementation"""
-    def __init__(self, active_scenario):
+    def __init__(self, active_scenario, agent):
         self.active_scenario = active_scenario
+        self.ag = agent
 
 
         self.get_constants()
@@ -53,6 +54,20 @@ class Equations():
 
         # unemployment threshold
         self.u_w = self.active_scenario.u_w
+
+        # coefficitent of the profit rate 
+        self.gamma_1 = self.active_scenario.gamma_1
+
+        # coefficitent of the profit rate 
+        self.gamma_2 = self.active_scenario.gamma_2
+
+        # normal profit rate
+        self.r_bar = self.active_scenario.r_bar
+
+        # normal capacity utilization
+        self.u_bar = self.active_scenario.u_bar
+
+
 
     def set_bookkeeper(self, bookkeeper):
         """Set the bookkeeper for equations"""
@@ -188,8 +203,8 @@ class CGFirmEquations(Equations):
     """
 
 
-    def __init__(self, active_scenario):
-        super().__init__(active_scenario)
+    def __init__(self, active_scenario, agent):
+        super().__init__(active_scenario, agent)
 
 
 
@@ -242,11 +257,11 @@ class CGFirmEquations(Equations):
 
     def Il_ct(self):
         """Compute Loans costs"""
-        pass
+        return 0.0
 
     def Ck_ct(self):
         """Compute Capital Costs"""
-        pass
+        return 0.0
 
     def Sr_ct(self):
         """Sales Revenue"""
@@ -265,6 +280,12 @@ class CGFirmEquations(Equations):
         """Difference on inventory costs"""
         pass
 
+    def g_ct(self, r_ct, ud_ct):
+        """Calculates the desired productive capacity growth
+        """
+
+        return self.gamma_1*((r_ct - self.r_bar)/self.r_bar) + self.gamma_2*((ud_ct - self.u_bar)/self.u_bar)
+
 
 
 
@@ -280,8 +301,8 @@ class KGFirmEquations(Equations):
         Equations (Object): Equations for capital goods firm
     """
 
-    def __init__(self, active_scenario):
-        super().__init__(active_scenario)
+    def __init__(self, active_scenario, agent):
+        super().__init__(active_scenario, agent)
 
 
 
@@ -308,8 +329,8 @@ class HHEquations(Equations):
     """
 
 
-    def __init__(self, active_scenario):
-        super().__init__(active_scenario)
+    def __init__(self, active_scenario, agent):
+        super().__init__(active_scenario, agent)
 
 
 

@@ -1,8 +1,8 @@
  # -*- coding: utf-8 -*-
-from  agents.accounting import HHBookkeeper
-from  agents import EconomicAgent
-from  goods import Labor
-from  equations import HHEquations
+from  .accounting import HHBookkeeper
+from  .agents import EconomicAgent
+from  .goods import Labor
+from  .equations import HHEquations
 import numpy as np
 
 
@@ -37,7 +37,7 @@ class Household(EconomicAgent):
         super().__init__(simulation, model, agent_number, agent_def)
        
         self.bookkeeper = HHBookkeeper(self)
-        self.eq = HHEquations(self.active_scenario)
+        self.eq = HHEquations(self.active_scenario, self)
 
         self.labor_mkt_name = "Labor_Market"
         self.cg_mkt_name = "CG_Market"

@@ -26,7 +26,7 @@ Todo:
 """
 
 from .firm import Firm
-from agents.accounting import FirmBookkeeper
+from  .accounting import FirmBookkeeper
 from .equations import CGFirmEquations
 from .goods import CapitalGood, ConsumptionGood, Labor
 import random as rnd
@@ -39,7 +39,7 @@ class CGFirm(Firm):
         super().__init__(simulation, model, agent_number, agent_def)
 
         self.bookkeeper = FirmBookkeeper(self)
-        self.eq = CGFirmEquations(self.active_scenario)
+        self.eq = CGFirmEquations(self.active_scenario, self)
         self.eq.set_bookkeeper(self.bookkeeper)
         
         self.labor_mkt_name = "Labor_Market"
@@ -68,6 +68,7 @@ class CGFirm(Firm):
         self.compute_credit_demand()
         self.select_lending_bank()
         self.produce()
+        self.compute_total_costs()
         self.offer_goods()
         self.buy_K_goods()
         self.pay_loans()
@@ -170,7 +171,7 @@ class CGFirm(Firm):
 
         ## Compute price 
         self.y_ct.c_price =self.eq.pt(self.mu_ct,
-                                      self.We_ct,
+                                      self.W_ct,
                                       self.Ndc_t,
                                       self.y_ct.c_quantity+1  # Cannot be zero???
                                      )
@@ -191,6 +192,11 @@ class CGFirm(Firm):
     def compute_rate_of_capacity_growth(self):
         """CG Firms compute their rate of capacity growth 
         """
+
+        self.g_ct = self.eq.g_ct(self.r_ct, self.ud_ct)
+
+
+
 
     def compute_demand_of_K_goods(self):
         """ With the expected rate of capacity growth CG firms
@@ -251,6 +257,13 @@ class CGFirm(Firm):
 
 
     def update_inventory(self, y):
+        """
+        The Firm updates its inventory
+
+        Args:
+            y (a_good): y is the firm production
+        """
+        ## NOTE: See if updating inventory is a bookkeeper task
 
         self.inv_ct_1.c_quantity = self.inv_ct.c_quantity
 
@@ -282,7 +295,7 @@ class CGFirm(Firm):
         - Se_ct: Expected sales quantity and price
         - K: Capital stock quantity and price
         - S_ct: Sales quantity and price
-        - We_ct: Initial salaries
+        - W_ct: Initial salaries
         - labor_demand: Initial labor demand
 
         Returns:
@@ -337,12 +350,12 @@ class CGFirm(Firm):
         self.S_ct = self.create_initial_sales(initial_sales_qnt, 
                                              initial_sales_price)
         
-        ## Generate initial salaries (We_ct)
+        ## Generate initial salaries (W_ct)
 #        self.ud_ct = rnd.randint(1,5)
         self.Ndc_t = rnd.randint(10, 50)
         self.Ndc_t_1 = rnd.randint(10, 50)
         self.labor_demand = self.create_initial_labor_demand(self.Ndc_t, 
-                                                             self.We_ct)
+                                                             self.W_ct)
         self.bookkeeper.include_asset(self.labor_demand)
    
     def create_initial_inventory(self, quantity, price):
@@ -396,10 +409,10 @@ class CGFirm(Firm):
                             c_producer=self)
     
 
-    def create_initial_labor_demand(self, Ndc_t, We_ct):
+    def create_initial_labor_demand(self, Ndc_t, W_ct):
 
         return Labor(c_quantity = Ndc_t,
-                     c_price=We_ct,
+                     c_price=W_ct,
                      c_owner=self,
                      c_producer=self)
 
