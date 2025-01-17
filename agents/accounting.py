@@ -72,6 +72,7 @@ class Bookkeeper:
             existing_asset.c_price = (existing_asset.c_price + asset.c_price) / 2
         else:
             self.assets[asset.c_name] = asset
+
     def exclude_asset(self, asset):
         """
         Excludes an asset from the balance sheet.
@@ -275,6 +276,23 @@ class FirmBookkeeper(Bookkeeper):
 
         return len(self.workforce)
 
+
+class CGFirmBookkeeper(FirmBookkeeper):
+
+
+    ### Here 17-01-2025
+    def __init__(self, owner, assets=None, liabilities=None, 
+                 cash=None, consumption=None):
+        super().__init__(owner, assets, liabilities, cash)
+
+    def loan_costs(self):
+
+        Lp_ct = 0.0
+
+        
+        for loan in self.liabilities.values():
+            Lp_ct += loan.term_payment
+        return Lp_ct
         
 
   

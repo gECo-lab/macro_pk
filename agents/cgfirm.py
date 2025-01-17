@@ -26,7 +26,7 @@ Todo:
 """
 
 from .firm import Firm
-from  .accounting import FirmBookkeeper
+from  .accounting import CGFirmBookkeeper
 from .equations import CGFirmEquations
 from .goods import CapitalGood, ConsumptionGood, Labor
 import random as rnd
@@ -38,7 +38,7 @@ class CGFirm(Firm):
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
 
-        self.bookkeeper = FirmBookkeeper(self)
+        self.bookkeeper = CGFirmBookkeeper(self)
         self.eq = CGFirmEquations(self.active_scenario, self)
         self.eq.set_bookkeeper(self.bookkeeper)
         

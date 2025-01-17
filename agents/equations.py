@@ -243,7 +243,7 @@ class CGFirmEquations(Equations):
     def C_ct(self):  # aqui 
         """Compute total Costs (CGFirms)"""
 
-        return  self.W_ct() + self.Il_ct() + self.Ck_ct()
+        return  self.W_ct() + self.Lp_ct() + self.Ck_ct()
         
 
 
@@ -255,7 +255,7 @@ class CGFirmEquations(Equations):
         return W_ct
 
 
-    def Il_ct(self):
+    def Lp_ct(self):
         """Compute Loans costs"""
         return 0.0
 
@@ -288,8 +288,6 @@ class CGFirmEquations(Equations):
 
 
 
-
-        
 
 
     

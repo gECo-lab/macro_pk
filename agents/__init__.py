@@ -13,7 +13,7 @@ from .cgfirm import CGFirm
 from .kgfirm import KGFirm
 from .bank import Bank
 from .household import Household
-from .accounting import Bookkeeper, FirmBookkeeper, HHBookkeeper
+from .accounting import Bookkeeper, FirmBookkeeper, CGFirmBookkeeper, HHBookkeeper
 from .goods import Good, ConsumptionGood, CapitalGood, Labor, Loan
 
 
@@ -26,6 +26,6 @@ __copyright__ = 'Copyright %s Ecos_p Team' % datetime.date.today().year
 
 
 __all__ = ["EconomicAgent", "Household", "Firm", "CGFirm", "KGFirm", 
-           "Bank", "Bookkeeper", "FirmBookkeeper", "HHBookkeeper",
+           "Bank", "Bookkeeper", "FirmBookkeeper", "CGFirmBookkeeper",  "HHBookkeeper",
            "Good", "ConsumptionGood", "CapitalGood", "Labor", "Loan"]
 
