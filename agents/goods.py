@@ -1,3 +1,5 @@
+import datetime
+
 """ Goods
 
 This module implements the commodities traded in an economy.
@@ -225,6 +227,7 @@ class Loan(Good):
         self.n_paid = 0   # number 
         self.value_paid = 0.0
         self.ammount_due = c_quantity * (1 + c_price)^n_term
+        self.date_contract = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     def term_payment(self, a_value):
         """ Execute a term payment of a loan

@@ -22,7 +22,7 @@
         },
         {
           "parameter_name": "no_of_steps",
-          "parameter_value": 40
+          "parameter_value": 60
         }
       ],
       "scenario_variables": [
@@ -84,6 +84,16 @@
         {
           "var_name": "u_w",
           "var_init_value": 0.08,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "eta",
+          "var_init_value": 20,
+          "var_type": "sharp"
+        },
+        {
+          "var_name": "kappa",
+          "var_init_value": 20,
           "var_type": "sharp"
         }
       ],
@@ -239,7 +249,7 @@
             "observed": true
           },
           {
-            "var_name": "r_ct",
+            "var_name": "R_ct",
             "var_type": "stochastic",
             "var_dist": "np.random.randint(1,10)",
             "var_value": 0.0,

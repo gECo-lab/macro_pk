@@ -78,36 +78,35 @@ cg_means <- CGFirm %>%
 ### Household
 
 ```{r}
-# Generate multiple graphs for household dataframe
+# Generate multiple graphs for household *dataframe
+library(gridExtra)
 graphs <- map(names(household_means)[-1], function(var) {
   ggplot(household_means, aes(x = step, y = !!sym(var))) +
     geom_line() +
     labs(x = "Step", y = paste("means - ", var)) +
-    ggtitle(paste("Household -", var))
+    ggtitle(paste("Household -", var)) +
+    theme(
+      plot.title = element_text(size = 10),
+      axis.title = element_text(size = 8)
+    )
 })
 
-# Print the graphs
-print(graphs)
-
-
-
-
-```
-
-```{r, eval=FALSE }
-# Generate multiple graphs for household dataframe
-hh_vars <- CGFirm %>% select(where(is.numeric))
-
-graphs <- map(names(hh_vars)[-1], function(var) {
-  ggplot(hh_vars, aes(x = step, y = !!sym(var))) +
-    geom_point() +
-    labs(x = "Step", y = var) +
-    ggtitle(paste("Household -", var))
+graphs <- map(names(household_means)[-1], function(var) {
+  ggplot(household_means, aes(x = step, y = !!sym(var))) +
+    geom_line() +
+    labs(x = "Step", y = paste("means - ", var)) +
+    ggtitle(paste("Household -", var))+
+    theme(
+      plot.title = element_text(size = 10),
+      axis.title = element_text(size = 8)
+    )
 })
 
-# Print the graphs
-print(graphs)
+# Arrange the graphs in a grid with 3 graphs per row
+do.call("grid.arrange", c(graphs, ncol = 3))
 
+# Print the graphs
+#print(graphs)
 ```
 
 
@@ -120,30 +119,21 @@ graphs <- map(names(cg_means)[-1], function(var) {
   ggplot(cg_means, aes(x = step, y = !!sym(var))) +
     geom_line() +
     labs(x = "Step", y = paste("means - ", var)) +
-    ggtitle(paste("CGFirm -", var))
+    ggtitle(paste("CGFirm -", var))+
+    theme(
+      plot.title = element_text(size = 10),
+      axis.title = element_text(size = 8)
+    )
 })
 
+
+do.call("grid.arrange", c(graphs, ncol = 3))
+
 # Print the graphs
-print(graphs)
+#print(graphs)
 
 
 
 
 ```
 
-```{r, eval=FALSE}
-# Generate multiple graphs for CGFirm dataframe
-graphs <- map(names(CGFirm)[-1], function(var) {
-  ggplot(CGFirm, aes(x = step, y = !!sym(var))) +
-    geom_point() +
-    labs(x = "Step", y = var) +
-    ggtitle(paste("CGFirm -", var))
-})
-
-# Print the graphs
-print(graphs)
-
-
-
-
-```

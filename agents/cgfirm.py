@@ -70,9 +70,12 @@ class CGFirm(Firm):
         self.produce()
         self.compute_total_costs()
         self.offer_goods()
+        self.compute_total_revenue()
+        self.compute_total_profits()
         self.buy_K_goods()
         self.pay_loans()
         self.pay_wages()
+
         self.distribute_dividends()
         self.select_deposit_bank()
         self.pay_taxes()
@@ -193,7 +196,7 @@ class CGFirm(Firm):
         """CG Firms compute their rate of capacity growth 
         """
 
-        self.g_ct = self.eq.g_ct(self.r_ct, self.ud_ct)
+        self.g_ct = self.eq.g_ct(self.R_ct, self.ud_ct)
 
 
 
@@ -280,6 +283,13 @@ class CGFirm(Firm):
 
         self.N_ct = self.bookkeeper.workforce_size()
 
+    def compute_total_revenue(self):
+
+        self.R_ct = self.eq.R_ct()
+
+    def compute_total_profits(self):
+
+        self.eq.pi_ct(self.R_ct, self.C_ct)
 
 
 

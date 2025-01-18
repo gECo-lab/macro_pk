@@ -53,6 +53,9 @@ class Bookkeeper:
 
         self.offer = None
         self.loans={}
+        ## add loans to liabilities
+        self.liabilities["loan"] = {}
+
             
 
     def include_asset(self, asset):
@@ -285,15 +288,51 @@ class CGFirmBookkeeper(FirmBookkeeper):
                  cash=None, consumption=None):
         super().__init__(owner, assets, liabilities, cash)
 
-    def loan_costs(self):
 
+    def add_loan(self, a_loan):
+
+        loans = self.liabilities["loan"]
+
+        if a_loan.date_contract not in loans:
+            loans[a_loan.date_contract] = a_loan
+        else:
+            raise ValueError("Loan exists in the loans balance sheet dictionary")
+
+
+
+
+    def loan_costs(self, eta):
+        """Return the total loan cost
+
+        Returns:
+            float: The sum of the loan costs by period.
+        """
         Lp_ct = 0.0
 
-        
-        for loan in self.liabilities.values():
-            Lp_ct += loan.term_payment
+        loans = self.liabilities["loan"]
+
+        for loan in loans.values():
+            Lp_ct += loan.one_term_ammount()
+
         return Lp_ct
         
+
+    def capital_costs(self, kappa):
+        """
+        Calculate the total capital costs.
+        This method iterates over the capital stock and calculates the total cost
+        by summing the product of the quantity and price of each capital good.
+        Returns:
+            float: The total capital costs.
+        """
+
+        Ck = 0.0
+
+        for capital_good in self.capital_stock.values():
+            Ck += (capital_good.c_quantity * capital_good.c_price)/kappa
+
+        return Ck
+
 
   
 class HHBookkeeper(Bookkeeper):
