@@ -186,8 +186,6 @@ class CGFirm(Firm):
                 - Cost on Loans
                 - Capital Costs
         """
-
-
         self.C_ct = self.eq.C_ct()
 
 
