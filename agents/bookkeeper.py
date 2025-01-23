@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from .goods import ConsumptionGood, Cash
+from .balance_sheet import BalanceSheet
 import random
 
 class Bookkeeper:
@@ -30,6 +31,7 @@ class Bookkeeper:
 
     def __init__(self, owner, assets=None, liabilities=None, cash=None):
         self.owner = owner
+        self.balance_sheet = BalanceSheet(self)
         if assets is not None:
             if isinstance(assets, dict):
                 self.assets = assets
