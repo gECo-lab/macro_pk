@@ -26,7 +26,7 @@ Todo:
 """
 
 from .firm import Firm
-from  .accounting import CGFirmBookkeeper
+from  .bookkeeper import CGFirmBookkeeper
 from .equations import CGFirmEquations
 from .goods import CapitalGood, ConsumptionGood, Labor
 import random as rnd

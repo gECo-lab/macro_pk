@@ -13,7 +13,7 @@ from .cgfirm import CGFirm
 from .kgfirm import KGFirm
 from .bank import Bank
 from .household import Household
-from .accounting import Bookkeeper, FirmBookkeeper, CGFirmBookkeeper, HHBookkeeper
+from .bookkeeper import Bookkeeper, FirmBookkeeper, CGFirmBookkeeper, HHBookkeeper
 from .goods import Good, ConsumptionGood, CapitalGood, Labor, Loan
 
 

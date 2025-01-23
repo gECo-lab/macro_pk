@@ -1,5 +1,5 @@
  # -*- coding: utf-8 -*-
-from  .accounting import HHBookkeeper
+from  .bookkeeper import HHBookkeeper
 from  .agents import EconomicAgent
 from  .goods import Labor
 from  .equations import HHEquations

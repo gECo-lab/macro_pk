@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from .goods import Good, ConsumptionGood, Cash
+from .goods import ConsumptionGood, Cash
 import random
 
 class Bookkeeper:

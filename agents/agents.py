@@ -1,6 +1,6 @@
 
 from kernel.agent.basicAgents import DiscreteEventAgent
-from .accounting import Bookkeeper
+from .bookkeeper import Bookkeeper
 import random as rnd
 
 
