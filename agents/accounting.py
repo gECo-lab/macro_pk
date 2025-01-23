@@ -333,7 +333,6 @@ class CGFirmBookkeeper(FirmBookkeeper):
 
         return Ck
 
-
   
 class HHBookkeeper(Bookkeeper):
 
