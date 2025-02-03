@@ -56,21 +56,49 @@ CGFirm <- read.csv(file.path(i, files)) %>%
 
 
 
-```{r generatingDFs, eval=TRUE}
+```{r generatingDFs, eval=FALSE}
 
 
-household_means <- Household %>%
-  group_by(step) %>%
-  summarise(across(where(is.numeric), mean))
+#household_means <- Household %>%
+#  group_by(step) %>%
+#  summarise(across(where(is.numeric), mean))
 
 
 
-cg_means <- CGFirm %>%
-  group_by(step) %>%
-  summarise(across(where(is.numeric), mean))
+#cg_means <- CGFirm %>%
+#  group_by(step) %>%
+#  summarise(across(where(is.numeric), mean))
 ```
 
 
+
+
+```{r, eval=FALSE}
+
+
+#household_means <- Household %>%
+#  group_by(step) %>%
+#  summarise(across(where(is.numeric), mean),
+#            across(where(is.logical), sum))
+
+#cg_means <- CGFirm %>%
+#  group_by(step) %>%
+#  summarise(across(where(is.numeric), mean),
+#            across(where(is.logical), sum))
+```
+
+
+```{r}
+household_means <- Household %>%
+  group_by(step) %>%
+  summarise(across(where(is.numeric), mean),
+            across(where(is.logical), ~ sum(.x, na.rm = TRUE), .names = "count_{.col}"))
+
+cg_means <- CGFirm %>%
+  group_by(step) %>%
+  summarise(across(where(is.numeric), mean),
+            across(where(is.logical), ~ sum(.x, na.rm = TRUE), .names = "count_{.col}"))
+```
 ## Results
 
 
@@ -103,7 +131,7 @@ graphs <- map(names(household_means)[-1], function(var) {
 })
 
 # Arrange the graphs in a grid with 3 graphs per row
-do.call("grid.arrange", c(graphs, ncol = 3))
+do.call("grid.arrange", c(graphs, ncol = 4))
 
 # Print the graphs
 #print(graphs)
@@ -127,7 +155,7 @@ graphs <- map(names(cg_means)[-1], function(var) {
 })
 
 
-do.call("grid.arrange", c(graphs, ncol = 3))
+do.call("grid.arrange", c(graphs, ncol = 4))
 
 # Print the graphs
 #print(graphs)
@@ -137,3 +165,12 @@ do.call("grid.arrange", c(graphs, ncol = 3))
 
 ```
 
+
+
+
+```{r}
+## Save the file
+write.csv(household_means, file.path(o, "household_means.csv"), row.names = FALSE)
+
+write.csv(cg_means, file.path(o, "cg_means.csv"), row.names = FALSE)
+```

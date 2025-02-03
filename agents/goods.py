@@ -50,6 +50,8 @@ class Good(object):
 
     CONSUME = ["immediate", "depreciable", "debt", "continuous", "cash"]
 
+
+
     def __init__(self, 
                  c_name,
                  c_type,      # real or financial
