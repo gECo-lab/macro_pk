@@ -129,16 +129,19 @@ class Bookkeeper:
         space.set_offer(self.owner, self.offer)
 
 
-    def offer_accepted(self, 
+    def offer_accepted(self,
+                       market, 
                        buyer, 
                        ):
         
         buyer.bookkeeper.pay(self.owner, self.offer.ammount())
         self.offer.c_owner = buyer
         buyer.bookkeeper.got_good(self.offer)
-        self.owner.release_offer(self.offer)
+        self.owner.got_contract(market, self.offer, buyer)
+        self.owner.release_offer(market, self.offer)
 
-    def offer_partially_accepted(self, 
+    def offer_partially_accepted(self,
+                                 market,  
                                  buyer,
                                  an_offer 
                        ):
@@ -147,6 +150,9 @@ class Bookkeeper:
         an_offer.c_owner = buyer
         buyer.bookkeeper.got_good(an_offer)
         self.offer.c_quantity -= an_offer.c_quantity
+        self.owner.got_partial_contract(market, self.offer, buyer)
+
+
 
 
     def get_accepted_offers(self, accepted_offers):
@@ -306,7 +312,10 @@ class HHBookkeeper(Bookkeeper):
 
     def add_labor(self, labor):
 
+        ## Precisa revisar todo o protocolo da classe
+
         self.balance_sheet.add_labor(labor)
+        self.owner.update_labor_quantity(labor)
 
 
     def is_unemployed(self):

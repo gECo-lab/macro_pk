@@ -107,13 +107,6 @@
             "observed": true
           },
           {
-            "var_name": "Se_ct",
-            "var_type": "stochastic",
-            "var_dist": "np.random.lognormal(1.0, 0.03)",
-            "var_value": 10.0,
-            "observed": true
-          },
-          {
             "var_name": "unemployed",
             "var_type": "stochastic",
             "var_dist": "np.random.choice([True,False], size = 1, p = [.2,.8])[0]",
@@ -128,16 +121,9 @@
             "observed": true
           },
           {
-            "var_name": "demand_expected_price",
-            "var_type": "stochastic",
-            "var_dist": "np.random.lognormal(1.0, 0.03)",
-            "var_value": 0.0,
-            "observed": true
-          },
-          {
             "var_name": "pe_ht",
             "var_type": "stochastic",
-            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_dist": "np.random.lognormal(0.2, 0.03)",
             "var_value": 0.0,
             "observed": true
           },
@@ -182,6 +168,13 @@
             "var_dist": "None",
             "var_value": 0,
             "observed": true
+          },
+          {
+            "var_name": "hourly_wage",
+            "var_type": "sharp",
+            "var_dist": "None",
+            "var_value": 0,
+            "observed": true
           }
         ],
         "CGFirm": [
@@ -202,7 +195,7 @@
           {
             "var_name": "desired_output",
             "var_type": "stochastic",
-            "var_dist": "np.random.lognormal(1.0, 0.03)",
+            "var_dist": "np.random.lognormal(10.0, 0.03)",
             "var_value": 0.0,
             "observed": true
           },

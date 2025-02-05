@@ -90,7 +90,7 @@ class Household(EconomicAgent):
 
         # Todo: Rewrite 
         """
-        self.offered_labor.c_quantity = np.random.lognormal(1.0, 0.03)
+        self.offered_labor.c_quantity = np.random.lognormal(1.0, 0.03) ## Isso está inconsistente
         self.offered_labor.c_price = self.compute_reservation_wages()
         self.has_offer = True
         space = self.get_a_space(self.labor_mkt_name)
@@ -110,9 +110,7 @@ class Household(EconomicAgent):
     def demand_goods(self):
         """ Household demand goods 
         """
-        self.calculate_consumer_demand()
         self.update_consumer_demand()
-
         ## Make good offer
         self.get_a_space(self.cg_mkt_name).set_demand(self, self.consumption_good)
                      
@@ -123,7 +121,7 @@ class Household(EconomicAgent):
 
         # include payment
         self.w_ht = self.income
-        self.consumption_good.c_quantity = 0
+        #self.consumption_good.c_quantity = 0
 
 
   
@@ -142,18 +140,16 @@ class Household(EconomicAgent):
         return self.bookkeeper.consumption
     
 
-    def update_consumer_demand(self):  
-        self.consumption_good.c_quantity = self.demand_qnt
+    def update_consumer_demand(self):
 
-
-    def calculate_consumer_demand(self):
-
-        self.demand_qnt = 1 + np.random.lognormal(1.0, 0.03)
-        return self.demand_qnt
+        self.calculate_income()
+        if self.income <= self.consumption_good.ammount() and self.consumption_good.c_price != 0:
+            self.consumption_good.c_quantity = self.income / self.consumption_good.c_price
+            
 
 
 
-    def create_labor_offer(self, labor_qnt, hourly_wage):
+    def create_labor(self, labor_qnt, hourly_wage):
         """Household creates labor offer
 
         Args:
@@ -169,15 +165,36 @@ class Household(EconomicAgent):
                      c_owner=self, 
                      c_producer=self)
     
+    def got_contract(self, a_market, an_offer, buyer):
+
+        self.got_job(a_market, an_offer)
+
+    def got_partial_contract(self, a_market, an_offer,  buyer):
+
+        self.got_job(a_market, an_offer)
+
+
     def got_job(self, a_market, an_offer):
 
         if a_market.name == self.labor_mkt_name:
-            self.unemployed = False
+            self.is_employed()
             self.offered_labor.c_quantity -= an_offer.c_quantity
             self.offered_labor.c_price = (self.offered_labor.c_price + an_offer.c_price)/2
             self.hourly_wage = an_offer.c_price
 
+            self.labor_contracted.c_quantity += an_offer.c_quantity
+            self.labor_contracted.c_price = (self.labor_contracted.c_price + an_offer.c_price)/2
+            self.update_labor_quantity()
 
+    def update_labor_quantity(self):
+        ## Precisa revisar isso com o bookkeeper
+
+        self.labor_qnt = self.labor_contracted.c_quantity
+
+
+
+
+    
 
     def is_unemployed(self):
         self.unemployed = True
@@ -189,39 +206,23 @@ class Household(EconomicAgent):
     
     def create_initial_values(self):
 
-        ## Household Variables: NOTE: Incluidas no cenario
-        ## self.demand_qnt = np.random.lognormal(1.0, 0.03)
-        ### self.demand_expected_price = np.random.lognormal(1.0, 0.03)
-   
-
         ## Create Initial consumer demand
         ## Transfer to Balance Sheet??
-        self.consumption_good = self.create_consumer_demand(self.demand_expected_price,
+        self.consumption_good = self.create_consumer_demand(self.pe_ht_1,
                                                             self.demand_qnt)
         
-        ## Expected prices
-        ## NOTE: Incluidas no cenario
-        # self.pe_ht = np.random.lognormal(1.0, 0.03)
-        # self.pe_ht_1 = np.random.lognormal(1.0, 0.03)
-      
-        ## Create Labor Offer
-        ## Transfer to Balance Sheet??
-        # self.unemployed = np.random.choice([True,False], size = 1, p = [.2,.8])[0]
-        ## self.labor_qnt = np.random.lognormal(1.0, 0.03)
-        ## self.wd_ht =  np.random.lognormal(1.0, 0.03)
-
-
-        self.offered_labor = self.create_labor_offer(self.labor_qnt, 
+        self.offered_labor = self.create_labor(self.labor_qnt, 
+                                               self.wd_ht)
+        self.labor_contracted = self.create_labor(0, 
                                              self.wd_ht)
+        
         self.bookkeeper.create_labor_capacity(self.offered_labor)
+
         if self.unemployed:
             self.is_unemployed()
-        
-        # time unemployed
-        # self.u_ht_n = 0
 
-        # self.unemployed = True
-  
+
+
  
 
 

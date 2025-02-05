@@ -43,7 +43,7 @@ class Market(Space):
                     self.seller = self.an_offer.c_producer
                     if self.an_offer.c_quantity <= self.this_remaining_demand:
                         self.this_remaining_demand -= self.an_offer.c_quantity
-                        self.seller.offer_accepted(self.buyer)
+                        self.seller.offer_accepted(self, self.buyer)
                         self.accepted_offers[self.seller.name] = self.an_offer
                         self.offers.pop(self.seller.name)
                     else:
@@ -52,13 +52,14 @@ class Market(Space):
                         self.an_offer.c_quantity -= self.this_remaining_demand
                         self.this_remaining_demand = 0.0
                         self.have_unmet_demand = False
-                        self.seller.offer_partially_accepted(self.buyer, self.partial_offer)
+                        self.seller.offer_partially_accepted(self, self.buyer, self.partial_offer)
                         self.accepted_offers[self.seller.name] = self.partial_offer
                     if self.this_remaining_demand == 0:
                         self.have_unmet_demand = False
                         self.release_offers()
                         self.buyer.demand_is_met()
                         self.buyer.get_accepted_offers(self.accepted_offers)
+
                 else:
                     self.market_has_no_offers()
                     self.have_unmet_demand = False

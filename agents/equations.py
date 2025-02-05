@@ -352,8 +352,6 @@ class HHEquations(Equations):
 
     def wd_ht(self, wd_ht_1, u_ht_n):
 
-
-
         FN_w = np.random.lognormal(1.0, 0.03)
         
         if FN_w > 1:
@@ -369,7 +367,7 @@ class HHEquations(Equations):
             self.wdht = wd_ht_1*(1 + FN_w)
 
         if self.wdht <= 0:
-            self.wdht = 0.1    
+            self.wdht = 0.01    
 
         return self.wdht
 
