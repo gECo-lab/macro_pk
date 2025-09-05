@@ -56,14 +56,29 @@ class Household(EconomicAgent):
             self.first_step = False
         self.create_expectations()
         self.compute_reservation_wages()
-        if self.unemployed:
-            self.u_ht_n += 1
-            self.offer_labor()
-            self.receive_dole()
+        self.check_if_unemployed()
         self.calculate_income()
         self.demand_goods()
         self.consume()
         self.pay_taxes()
+
+
+    def create_initial_values(self):
+
+        ## Create Initial consumer demand
+        ## Transfer to Balance Sheet??
+        self.consumption_good = self.create_consumer_demand(self.pe_ht_1,
+                                                            self.demand_qnt)
+        
+        self.offered_labor = self.create_labor(self.labor_qnt, 
+                                               self.wd_ht)
+        self.labor_contracted = self.create_labor(0, 
+                                             self.wd_ht)
+        
+        self.bookkeeper.create_labor_capacity(self.offered_labor)
+
+        if self.unemployed:
+            self.is_unemployed()
 
 
     def create_expectations(self):
@@ -84,13 +99,21 @@ class Household(EconomicAgent):
 
         return self.wd_ht
 
+    def check_if_unemployed(self):
+
+        if self.unemployed:
+            self.u_ht_n += 1
+            self.offer_labor()
+            self.receive_dole()
+
 
     def offer_labor(self):
         """ Worker offer labor in labor market
 
         # Todo: Rewrite 
         """
-        self.offered_labor.c_quantity = np.random.lognormal(1.0, 0.03) ## Isso está inconsistente
+        self.update_labor_quantity()
+        self.offered_labor.c_quantity = self.labor_qnt
         self.offered_labor.c_price = self.compute_reservation_wages()
         self.has_offer = True
         space = self.get_a_space(self.labor_mkt_name)
@@ -148,7 +171,6 @@ class Household(EconomicAgent):
             
 
 
-
     def create_labor(self, labor_qnt, hourly_wage):
         """Household creates labor offer
 
@@ -204,24 +226,6 @@ class Household(EconomicAgent):
         self.unemployed = False
   
     
-    def create_initial_values(self):
-
-        ## Create Initial consumer demand
-        ## Transfer to Balance Sheet??
-        self.consumption_good = self.create_consumer_demand(self.pe_ht_1,
-                                                            self.demand_qnt)
-        
-        self.offered_labor = self.create_labor(self.labor_qnt, 
-                                               self.wd_ht)
-        self.labor_contracted = self.create_labor(0, 
-                                             self.wd_ht)
-        
-        self.bookkeeper.create_labor_capacity(self.offered_labor)
-
-        if self.unemployed:
-            self.is_unemployed()
-
-
 
  
 

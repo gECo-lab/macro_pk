@@ -367,7 +367,7 @@ class HHEquations(Equations):
             self.wdht = wd_ht_1*(1 + FN_w)
 
         if self.wdht <= 0:
-            self.wdht = 0.01    
+            self.wdht = 0.0001    
 
         return self.wdht
 

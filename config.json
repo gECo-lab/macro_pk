@@ -2,11 +2,19 @@
   "Description": "Configuration file for the macroeconomic model",
   "paths":
     {
-      "kernel": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/main/EcoSim_p/kernel/",
+      "kernel": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/main/EcoSim_p/",
       "app": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk/",
       "models": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk/models/",
       "scenarios": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk/scenarios/",
-      "runs": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk//runs/",
-      "results": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk//results/"      
+      "runs": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk/runs/",
+      "results": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk/results/",
+      "analisys": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/macro_pk/analisys/" 
+    },
+    "files":
+    {
+      "model": "macro_pk_base.json",
+      "scenarios": "macro_pk_scn_base.json",
+      "analisys": "macro_pk.rmd",
+      "results": "macro_pk.html"      
     }
 }
