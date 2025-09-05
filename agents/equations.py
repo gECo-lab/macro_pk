@@ -67,6 +67,11 @@ class Equations():
         # normal capacity utilization
         self.u_bar = self.active_scenario.u_bar
 
+        # duration of the loans
+        self.eta = self.active_scenario.eta
+
+        # duration of the capital
+        self.kappa = self.active_scenario.kappa
 
 
     def set_bookkeeper(self, bookkeeper):
@@ -243,9 +248,7 @@ class CGFirmEquations(Equations):
     def C_ct(self):  # aqui 
         """Compute total Costs (CGFirms)"""
 
-        return  self.W_ct() + self.Il_ct() + self.Ck_ct()
-        
-
+        return  self.W_ct() + self.Lp_ct() + self.Ck_ct()
 
     def W_ct(self):
         """Compute Labor Costs"""
@@ -254,42 +257,54 @@ class CGFirmEquations(Equations):
 
         return W_ct
 
-
-    def Il_ct(self):
+    def Lp_ct(self):
         """Compute Loans costs"""
-        return 0.0
+        
+        return self.bookkeeper.loan_costs(self.eta)
 
     def Ck_ct(self):
         """Compute Capital Costs"""
-        return 0.0
+        
+        return self.bookkeeper.capital_costs(self.kappa)
 
-    def Sr_ct(self):
-        """Sales Revenue"""
+    def R_ct(self):
+        """Total Revenue"""
 
         return self.S_ct() + self.Id_ct() + self.Inv_ct()
     
     def S_ct(self):
-        """Sales Revenue"""
-        pass
+        """Sales Revenues"""
+        return np.random.random() #change on implementation
 
     def Id_ct(self):
         """Interest on deposits"""
-        pass
+        return np.random.random() #change on implementation
 
     def Inv_ct(self):
         """Difference on inventory costs"""
-        pass
+        return np.random.random() #change on implementation
 
-    def g_ct(self, r_ct, ud_ct):
+    def g_ct(self, R_ct, ud_ct):
         """Calculates the desired productive capacity growth
         """
 
-        return self.gamma_1*((r_ct - self.r_bar)/self.r_bar) + self.gamma_2*((ud_ct - self.u_bar)/self.u_bar)
+        return self.gamma_1*((R_ct - self.r_bar)/self.r_bar) + self.gamma_2*((ud_ct - self.u_bar)/self.u_bar)
+
+    def pi_ct(self, R_ct, C_ct):
+        """
+        Calculate the profit (pi) given revenue and cost.
+
+        Args:
+            R_ct (float): The revenue.
+            C_ct (float): The cost.
+
+        Returns:
+            float: The profit, calculated as revenue minus cost.
+        """
+
+        return R_ct - C_ct
 
 
-
-
-        
 
 
     
@@ -337,8 +352,6 @@ class HHEquations(Equations):
 
     def wd_ht(self, wd_ht_1, u_ht_n):
 
-
-
         FN_w = np.random.lognormal(1.0, 0.03)
         
         if FN_w > 1:
@@ -354,7 +367,7 @@ class HHEquations(Equations):
             self.wdht = wd_ht_1*(1 + FN_w)
 
         if self.wdht <= 0:
-            self.wdht = 0.1    
+            self.wdht = 0.0001    
 
         return self.wdht
 

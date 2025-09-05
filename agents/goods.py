@@ -1,3 +1,5 @@
+import datetime
+
 """ Goods
 
 This module implements the commodities traded in an economy.
@@ -47,6 +49,8 @@ class Good(object):
     
 
     CONSUME = ["immediate", "depreciable", "debt", "continuous", "cash"]
+
+
 
     def __init__(self, 
                  c_name,
@@ -200,7 +204,7 @@ class Labor(Good):
 
 class Loan(Good):
 
-      def __init__(self, 
+    def __init__(self, 
                  c_name = None,
                  c_type = None,  
                  c_category = None,
@@ -208,7 +212,8 @@ class Loan(Good):
                  c_quantity = None,
                  c_price = None,
                  c_owner=None,
-                 c_producer=None):
+                 c_producer=None,
+                 n_term=None):
         
         """" Init method for Loans """
 
@@ -216,10 +221,35 @@ class Loan(Good):
         self.c_type = "financial"
         self.c_category = "l"
         self.c_consume = "debt"
-        self.c_quantity = c_quantity
-        self.c_price = c_price
-        self.c_owner = c_owner
-        self.c_producer = c_producer
+        self.c_quantity = c_quantity  # value of the loan
+        self.c_price = c_price # interest rate of the loan
+        self.c_owner = c_owner # borower
+        self.c_producer = c_producer # lender
+        self.n_term = n_term # number of payments 
+        self.n_paid = 0   # number 
+        self.value_paid = 0.0
+        self.ammount_due = c_quantity * (1 + c_price)^n_term
+        self.date_contract = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    def term_payment(self, a_value):
+        """ Execute a term payment of a loan
+
+        Args:
+            a_value (a_number): the value to be paid.
+        """        
+        self.value_paid += a_value
+        self.ammount_due -= a_value
+
+
+    def one_term_ammount(self):
+
+        coef = self.c_price/(1 - (1 + self.c_price)^self.n_term)
+
+        return self.c_quantity*coef
+
+
+
+
 
 class Cash(Good):
 
